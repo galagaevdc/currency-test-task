@@ -10,22 +10,22 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController("/books")
+@RestController
 public class BookController {
     @Autowired
     private BookService bookService;
 
-    @PostMapping
+    @PostMapping("/books")
     public BookDto create(@RequestBody BookDto bookDto) {
         return bookService.create(bookDto);
     }
 
-    @PutMapping
+    @PutMapping("/books")
     public BookDto update(@RequestBody BookDto bookDto) {
         return bookService.update(bookDto);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/books/{id}")
     public BookDto update(@PathVariable long id) {
         return bookService.findById(id);
     }

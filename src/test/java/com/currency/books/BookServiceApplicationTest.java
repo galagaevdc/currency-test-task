@@ -44,6 +44,7 @@ public class BookServiceApplicationTest {
         bookDto.setShortDescription("description");
         bookDto.setAuthors(authors);
         this.mockMvc.perform(post("/books")
+                        .header("Content-Type","application/json")
                         .content(objectMapper.writeValueAsString(bookDto))).andDo(print())
                 .andExpect(status().isOk())
                 //TODO: add checks
