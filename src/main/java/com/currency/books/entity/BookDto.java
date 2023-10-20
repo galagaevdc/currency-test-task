@@ -2,6 +2,7 @@ package com.currency.books.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 import java.util.Date;
@@ -11,6 +12,7 @@ import java.util.List;
 public class BookDto {
     private Long id;
     private String title;
+    @NotBlank(message = "Isbn is mandatory")
     private String isbn;
     private List<AuthorDto> authors;
     private List<String> genres;

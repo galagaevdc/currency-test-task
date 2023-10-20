@@ -29,20 +29,8 @@ public class BookServiceApplicationTest {
 
     @Test
     void createBook() throws Exception {
-        final BookDto bookDto = new BookDto();
-        final List<AuthorDto> authors = new ArrayList<>();
-        authors.add(createAuthorDto("tes1t@gmail.com",
-                "testFirst1", "testSecond1"));
-        authors.add(createAuthorDto("tes2t@gmail.com",
-                "testFirst2", "testSecond2"));
-        bookDto.setIsbn("isbn");
-        bookDto.setGenres(List.of("testGenre1", "testGenre2"));
-        bookDto.setPublisher("publisher");
-        bookDto.setPublishDate(new Date());
-        bookDto.setPublisher("publiser");
-        bookDto.setTitle(TITILE);
-        bookDto.setShortDescription("description");
-        bookDto.setAuthors(authors);
+        final BookDto bookDto = createBookDto("isbn");
+
         this.mockMvc.perform(post("/books")
                         .header("Content-Type","application/json")
                         .content(objectMapper.writeValueAsString(bookDto))).andDo(print())
@@ -50,6 +38,34 @@ public class BookServiceApplicationTest {
                 //TODO: add checks
                 .andExpect(jsonPath("$.id").isNotEmpty())
                 .andExpect(jsonPath("$.title").value(TITILE));
+    }
+
+    private static BookDto createBookDto(final String isbn) {
+        final BookDto bookDto = new BookDto();
+        final List<AuthorDto> authors = new ArrayList<>();
+        authors.add(createAuthorDto("tes1t@gmail.com",
+                "testFirst1", "testSecond1"));
+        authors.add(createAuthorDto("tes2t@gmail.com",
+                "testFirst2", "testSecond2"));
+        bookDto.setIsbn(isbn);
+        bookDto.setGenres(List.of("testGenre1", "testGenre2"));
+        bookDto.setPublisher("publisher");
+        bookDto.setPublishDate(new Date());
+        bookDto.setPublisher("publiser");
+        bookDto.setTitle(TITILE);
+        bookDto.setShortDescription("description");
+        bookDto.setAuthors(authors);
+        return bookDto;
+    }
+
+    @Test
+    void createInvalidBook() throws Exception {
+        final BookDto bookDto = createBookDto(null);
+
+        this.mockMvc.perform(post("/books")
+                        .header("Content-Type","application/json")
+                        .content(objectMapper.writeValueAsString(bookDto))).andDo(print())
+                .andExpect(status().isBadRequest());
     }
 
     //TODO: add test for other methods

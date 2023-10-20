@@ -2,6 +2,7 @@ package com.currency.books.controller;
 
 import com.currency.books.entity.BookDto;
 import com.currency.books.service.BookService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,7 +17,7 @@ public class BookController {
     private BookService bookService;
 
     @PostMapping("/books")
-    public BookDto create(@RequestBody BookDto bookDto) {
+    public BookDto create(@Valid @RequestBody BookDto bookDto) {
         return bookService.create(bookDto);
     }
 
