@@ -6,4 +6,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(code = HttpStatus.NOT_FOUND, reason ="Book is not found")
 public class BookNotFoundException extends RuntimeException {
+    public BookNotFoundException(final String message) {
+        super(message);
+    }
 }

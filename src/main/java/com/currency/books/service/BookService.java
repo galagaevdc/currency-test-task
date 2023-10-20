@@ -58,7 +58,7 @@ public class BookService {
 
     private BookEntity getBook(final Long id) {
         return bookRepository.findById(id).orElseThrow(() -> {
-            throw new BookNotFoundException();
+            throw new BookNotFoundException("Unable to find book " + id);
         });
     }
 
